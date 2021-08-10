@@ -1,9 +1,3 @@
-(setq comp-deferred-compilation t)
-
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-
 ;; appearance
 (set-face-attribute 'default nil :height 180)
 (setq inhibit-startup-screen t)
@@ -60,8 +54,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(zenburn-theme zenburn magit solarized-light ess use-package solarized-theme)))
+ '(package-selected-packages '(magit poly-R ess zenburn-theme use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
