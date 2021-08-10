@@ -10,6 +10,9 @@
 (setq visible-bell t)
 (tool-bar-mode -1)
 
+;; use view-mode for read only files (e.g. R help)
+(setq view-read-only t)
+
 ;; org mode
 (global-set-key "\C-ca" 'org-agenda)
 
@@ -34,11 +37,11 @@
 (setq vc-make-backup-files t)
 
 ;; additional packages
-(use-package solarized-theme
+(use-package zenburn-theme
   :ensure t
   :pin melpa
   :config
-  (load-theme 'solarized-light t))
+  (load-theme 'zenburn t))
 
 (use-package ess
   :ensure t
@@ -57,7 +60,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(magit solarized-light ess use-package solarized-theme)))
+ '(package-selected-packages
+   '(zenburn-theme zenburn magit solarized-light ess use-package solarized-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
