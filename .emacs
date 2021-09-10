@@ -6,10 +6,11 @@
 (package-initialize)
 
 ;; appearance
-(set-face-attribute 'default nil :height 180)
+(set-face-attribute 'default nil :height 140)
 (setq inhibit-startup-screen t)
 (setq visible-bell t)
 (tool-bar-mode -1)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; use view-mode for read only files (e.g. R help)
 (setq view-read-only t)
@@ -45,6 +46,7 @@
 
 (use-package ess
   :ensure t
+  :init (require 'ess-site)
   :pin melpa)
 
 (use-package poly-R
