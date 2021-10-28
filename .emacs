@@ -1,9 +1,15 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(load "nextflow-mode")
+;; setup files ending in “.js” to open in js2-mode
+(add-to-list 'auto-mode-alist '("\\.nf\\'" . nextflow-mode))
 
 ;; appearance
 (set-face-attribute 'default nil :height 140)
@@ -24,7 +30,7 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . text-mode))
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
 
-;; fancier completion 
+;; fancier completion
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
@@ -37,6 +43,14 @@
       delete-old-versions t ;; Don't ask to delete excess backup versions.
       backup-by-copying t)  ;; Copy all files, don't rename them.
 (setq vc-make-backup-files t)
+
+;; tabs are evil
+(defun untabify-except-makefiles ()
+  "Replace tabs with spaces except in makefiles."
+  (unless (derived-mode-p 'makefile-mode)
+    (untabify (point-min) (point-max))))
+
+(add-hook 'before-save-hook 'untabify-except-makefiles)
 
 ;; additional packages
 (use-package modus-themes
@@ -59,7 +73,7 @@
 
 (use-package org
   :ensure t
-  :init
+  :config
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
@@ -71,14 +85,25 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   )
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+(use-package ws-butler
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'ws-butler-mode)
+  )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files '("~/Documents/org/september.org"))
+ '(global-flycheck-mode t)
+ '(org-agenda-files '("~/Documents/org/2021-october.org"))
  '(package-selected-packages
-   '(rainbow-delimiters modus-themes magit poly-R ess zenburn-theme use-package)))
+   '(ws-butler groovy-mode flycheck rainbow-delimiters modus-themes magit poly-R ess zenburn-theme use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
