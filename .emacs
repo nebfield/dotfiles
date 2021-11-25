@@ -18,6 +18,14 @@
 (tool-bar-mode -1)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+(defun pulse-line (&rest _)
+      "Pulse the current line."
+      (pulse-momentary-highlight-one-line (point)))
+
+(dolist (command '(scroll-up-command scroll-down-command
+                   recenter-top-bottom other-window))
+  (advice-add command :after #'pulse-line))
+
 ;; use view-mode for read only files (e.g. R help)
 (setq view-read-only t)
 
