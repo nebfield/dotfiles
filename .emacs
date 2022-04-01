@@ -7,9 +7,9 @@
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
-(load "nextflow-mode")
+;; (load "nextflow-mode")
 ;; setup files ending in “.js” to open in js2-mode
-(add-to-list 'auto-mode-alist '("\\.nf\\'" . nextflow-mode))
+;; (add-to-list 'auto-mode-alist '("\\.nf\\'" . nextflow-mode))
 
 ;; appearance
 (set-face-attribute 'default nil :height 140)
@@ -37,6 +37,7 @@
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . text-mode))
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 
 ;; fancier completion
 (setq ido-enable-flex-matching t)
@@ -80,15 +81,6 @@
   :config
   (load-theme 'modus-vivendi t))
 
-(use-package ess
-  :ensure t
-  :init (require 'ess-site)
-  :pin melpa)
-
-(use-package poly-R
-  :ensure t
-  :pin melpa)
-
 (use-package magit
   :ensure t
   :pin melpa)
@@ -109,7 +101,9 @@
 
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode))
+  :init (global-flycheck-mode)
+  :config (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+  )
 
 (use-package ws-butler
   :ensure t
@@ -117,18 +111,8 @@
   (add-hook 'prog-mode-hook #'ws-butler-mode)
   )
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(global-flycheck-mode t)
- '(org-agenda-files '("~/Documents/org/2021-october.org"))
- '(package-selected-packages
-   '(ws-butler groovy-mode flycheck rainbow-delimiters modus-themes magit poly-R ess zenburn-theme use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(use-package yaml-mode
+  :ensure t
+  )
+
+
