@@ -1,15 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-
-;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
-;; and `package-pinned-packages`. Most users will not need or want to do this.
-;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
-
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-;; (load "nextflow-mode")
-;; setup files ending in “.js” to open in js2-mode
-;; (add-to-list 'auto-mode-alist '("\\.nf\\'" . nextflow-mode))
 
 ;; appearance
 (set-face-attribute 'default nil :height 140)
@@ -17,14 +8,6 @@
 (setq visible-bell t)
 (tool-bar-mode -1)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-(defun pulse-line (&rest _)
-      "Pulse the current line."
-      (pulse-momentary-highlight-one-line (point)))
-
-(dolist (command '(scroll-up-command scroll-down-command
-                   recenter-top-bottom other-window))
-  (advice-add command :after #'pulse-line))
 
 ;; use view-mode for read only files (e.g. R help)
 (setq view-read-only t)
@@ -35,9 +18,7 @@
 ;; hard wrap text files, don't wrap code
 (setq-default fill-column 80)
 (add-hook 'text-mode-hook #'auto-fill-mode)
-(add-to-list 'auto-mode-alist '("\\.md\\'" . text-mode))
 (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
-(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 
 ;; fancier completion
 (setq ido-enable-flex-matching t)
@@ -115,4 +96,30 @@
   :ensure t
   )
 
+(use-package groovy-mode
+  :ensure t
+  )
 
+(use-package nextflow-mode
+  :load-path ".emacs/lisp"
+  :mode "\\.nf\\'")
+
+(use-package groovy-nf
+  :after (groovy-mode nextflow))
+
+(use-package yaml-mode
+  :mode "\\.yaml\\'")
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(groovy-mode yaml-mode ws-butler use-package rainbow-delimiters poly-R modus-themes magit flycheck ess)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
