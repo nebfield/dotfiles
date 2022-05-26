@@ -3,7 +3,8 @@
 (package-initialize)
 
 ;; appearance
-(set-face-attribute 'default nil :height 140)
+(if (eq system-type 'darwin) (set-face-attribute 'default nil :height 180) (set-face-attribute 'default nil :height 140))
+
 (setq inhibit-startup-screen t)
 (setq visible-bell t)
 (tool-bar-mode -1)
