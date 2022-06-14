@@ -3,10 +3,12 @@
 (package-initialize)
 
 ;; appearance
-(if (eq system-type 'darwin) (set-face-attribute 'default nil :height 180) (set-face-attribute 'default nil :height 140))
+(if (eq system-type 'darwin)
+    (set-face-attribute  'default nil :family "Monaco" :height 160)
+  (set-face-attribute 'default nil :height 140))
 
 (setq inhibit-startup-screen t)
-(setq visible-bell t)
+(setq visible-bell nil)
 (tool-bar-mode -1)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -42,6 +44,11 @@
     (untabify (point-min) (point-max))))
 
 (add-hook 'before-save-hook 'untabify-except-makefiles)
+
+(setq mac-option-key-is-meta nil
+      mac-command-key-is-meta t
+      mac-command-modifier 'meta
+      mac-option-modifier 'none)
 
 ;; break bad habits
 (global-unset-key (kbd "<left>"))
